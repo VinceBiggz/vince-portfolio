@@ -1,14 +1,10 @@
-// src/App.jsx
-import React from "react";
-import HeroSection from "./components/HeroSection";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css'; // Optional: your global styles
 
-function App() {
-  return (
-    <div>
-      <HeroSection />
-      {/* Add other sections like About, Projects, Contact, etc. */}
-    </div>
-  );
-}
-
-export default App;
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
