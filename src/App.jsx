@@ -4,7 +4,7 @@ import HeroSection from "./components/HeroSection";
 
 function App() {
   return (
-    <div>
+    <div className="hero">
       <HeroSection />
       {/* Add other sections like About, Projects, Contact, etc. */}
     </div>
