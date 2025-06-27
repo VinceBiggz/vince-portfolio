@@ -1,12 +1,13 @@
-// src/App.jsx
 import React from "react";
 import HeroSection from "./components/HeroSection";
+import AboutSection from "./components/AboutSection";
 
 function App() {
   return (
-    <div className="hero">
+    <div>
       <HeroSection />
-      {/* Add other sections like About, Projects, Contact, etc. */}
+      <AboutSection />
+      {/* Projects, Contact, etc. */}
     </div>
   );
 }
