@@ -1,40 +1,53 @@
 import React from "react";
-import profilePic from "../assets/vincent_wachira_pic_1.jpeg"; // relative import path
+import { motion } from "framer-motion";
+import profilePic from "../assets/vincent_wachira_pic_1.jpeg";
 
 const HeroSection = () => {
   return (
-    <section className="w-full min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
-      <div className="w-full flex flex-col md:flex-row items-center justify-center">
+    <section className="w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-indigo-100 flex items-center justify-center px-6 py-16">
+      <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         
         {/* Image */}
-        <div className="md:w-1/2 w-full flex justify-center mb-8 md:mb-0">
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex justify-center"
+        >
           <img
             src={profilePic}
             alt="Vincent Wachira"
-            className="max-w-[90%] max-h-[90vh] md:max-w-[50vw] md:max-h-[90vh] object-cover rounded-lg shadow-lg border border-indigo-200"
+            className="w-[280px] md:w-[360px] lg:w-[420px] h-auto object-cover rounded-2xl shadow-2xl border-4 border-indigo-200"
           />
-        </div>
+        </motion.div>
 
         {/* Text */}
-        <div className="md:w-1/2 w-full text-center md:text-left px-4 space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-center md:text-left space-y-6"
+        >
+          <h1 className="text-4xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
             Vincent Wachira
           </h1>
-          <h2 className="text-xl md:text-2xl text-indigo-600 font-semibold">
+          <h2 className="text-lg md:text-xl lg:text-2xl text-indigo-600 font-medium tracking-wide">
             Building Secure, Scalable Systems with Precision and Purpose
           </h2>
-          <p className="text-gray-700 text-base md:text-lg leading-relaxed">
-            I'm a seasoned IT professional passionate about digital transformation,
-            cybersecurity, and automation. I help organizations harness cloud and AI
-            technologies to streamline operations and drive measurable results.
+          <p className="text-gray-700 text-base md:text-lg leading-relaxed max-w-xl">
+            I'm a seasoned IT professional with a decade of experience leading digital
+            transformation, cloud migration, and automation initiatives. I align
+            technology strategy with business goals to deliver measurable outcomes.
           </p>
-          <a
-            href="#projects"
-            className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-md shadow-md hover:bg-indigo-700 transition"
-          >
-            View Projects
-          </a>
-        </div>
+          <div>
+            <a
+              href="#projects"
+              className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl shadow-lg hover:bg-indigo-700 hover:scale-105 transition-all duration-300"
+            >
+              View Projects
+            </a>
+          </div>
+        </motion.div>
 
       </div>
     </section>
