@@ -1,15 +1,10 @@
-import React from "react";
-import HeroSection from "./components/HeroSection";
-import AboutSection from "./components/AboutSection";
-// Future: ProjectsSection, ContactSection, etc.
+import { Outlet } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout.jsx";
 
-function App() {
+export default function App() {
   return (
-    <div className="bg-white text-gray-900 min-h-screen">
-      <HeroSection />
-      <AboutSection />
-    </div>
+    <MainLayout>
+      <Outlet />
+    </MainLayout>
   );
 }
-
-export default App;
