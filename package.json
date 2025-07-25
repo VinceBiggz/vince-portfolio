@@ -1,6 +1,7 @@
 {
   "name": "vince-portfolio",
   "version": "1.0.0",
+  "type": "module",
   "homepage": "https://VinceBiggz.github.io/vince-portfolio",
   "scripts": {
     "dev": "vite --base=/vince-portfolio/",
@@ -9,7 +10,7 @@
     "preview": "vite preview",
     "deploy": "gh-pages -d dist",
     "tw:init": "tailwindcss init -p",
-    "lint": "eslint . --ext js,jsx,ts,tsx",
+    "lint": "eslint",
     "format": "prettier --write ."
   },
   "dependencies": {
