@@ -36,6 +36,13 @@ const projects = [
     demoLink: "",
     image: "/assets/placeholder.jpg",
   },
+  {
+    title: "Cloud-Native Issue Tracker",
+    description: "A cloud-based issue tracking system built with AWS and React.",
+    githubLink: "https://github.com/VinceBiggz/issue-tracker",
+    demoLink: "",
+    image: "/assets/placeholder.jpg",
+  },
   // Add other projects here
 ];
 
