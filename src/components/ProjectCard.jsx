@@ -1,23 +1,38 @@
 import { motion } from "framer-motion";
+import projectImage from "../assets/vincent_wachira_pic_1.jpeg";
 
 export default function ProjectCard({ title, description, githubLink, demoLink, image }) {
   return (
     <motion.div
-      className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
-      whileHover={{ scale: 1.05 }}
+      className="bg-white p-6 rounded-2xl shadow-xl border border-gray-100"
+      whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
-      <img src={image} alt={title} className="w-full h-48 object-cover rounded-md mb-4" />
-      <h3 className="text-xl font-bold">{title}</h3>
-      <p className="text-gray-600 dark:text-gray-300 mt-2">{description}</p>
-      <div className="mt-4 flex space-x-4">
+      <img 
+        src={image || projectImage} 
+        alt={title} 
+        className="w-full h-48 object-cover rounded-xl mb-4 shadow-md" 
+      />
+      <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
+      <p className="text-gray-700 mb-4 leading-relaxed">{description}</p>
+      <div className="flex space-x-4">
         {githubLink && (
-          <a href={githubLink} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+          <a 
+            href={githubLink} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+          >
             GitHub
           </a>
         )}
         {demoLink && (
-          <a href={demoLink} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+          <a 
+            href={demoLink} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+          >
             Live Demo
           </a>
         )}

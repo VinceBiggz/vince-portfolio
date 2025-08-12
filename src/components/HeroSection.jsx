@@ -4,7 +4,7 @@ import profilePic from "../assets/vincent_wachira_pic_1.jpeg";
 
 const HeroSection = () => {
   return (
-    <section className="w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-indigo-100 flex items-center justify-center px-6 py-16">
+    <section className="w-full min-h-screen bg-white flex items-center justify-center px-6 py-16">
       <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         
         {/* Image */}
@@ -35,7 +35,7 @@ const HeroSection = () => {
             Building Secure, Scalable Systems with Precision and Purpose
           </h2>
           <p className="text-gray-700 text-base md:text-lg leading-relaxed max-w-xl">
-            I'm a seasoned IT professional with a decade of experience leading digital
+            I'm a seasoned IT professional with over 12 years of experience leading digital
             transformation, cloud migration, and automation initiatives. I align
             technology strategy with business goals to deliver measurable outcomes.
           </p>

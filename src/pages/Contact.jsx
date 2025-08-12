@@ -31,9 +31,9 @@ export default function Contact() {
       aria-labelledby="contact-heading"
     >
       <h2 id="contact-heading" className="text-3xl font-bold text-center mb-8">Contact Me</h2>
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-6 rounded-xl shadow-md">
         <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
             Name
           </label>
           <input
@@ -41,13 +41,13 @@ export default function Contact() {
             id="name"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white"
+            className="w-full p-2 border rounded bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
             aria-required="true"
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
             Email
           </label>
           <input
@@ -55,30 +55,30 @@ export default function Contact() {
             id="email"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white"
+            className="w-full p-2 border rounded bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
             aria-required="true"
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label htmlFor="message" className="block text-sm font-medium text-gray-700">
             Message
           </label>
           <textarea
             id="message"
             value={formData.message}
             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-            className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white"
+            className="w-full p-2 border rounded bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             rows="4"
             required
             aria-required="true"
           ></textarea>
         </div>
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+        <button type="submit" className="bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
           Send
         </button>
       </form>
-      {status && <p className="text-center mt-4">{status}</p>}
+      {status && <p className="text-center mt-4" role="status">{status}</p>}
       <p className="text-center mt-4">
         Or reach out via{" "}
         <a href="mailto:wachirakungu@gmail.com" className="text-blue-500">
