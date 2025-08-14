@@ -3,9 +3,9 @@ import Footer from "../components/Footer.jsx";
 
 export default function MainLayout({ children }) {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <main id="main-content" className="flex-grow">{children}</main>
+      <main id="main-content" className="grow">{children}</main>
       <Footer />
     </div>
   );

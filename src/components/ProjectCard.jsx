@@ -5,11 +5,11 @@ export default function ProjectCard({ title, description, githubLink, image, sta
   const getStatusBadge = (status) => {
     switch (status) {
       case "in-development":
-        return <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">In Development</span>;
+        return <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800">In Development</span>;
       case "planned":
-        return <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">Coming Soon</span>;
+        return <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-800">Coming Soon</span>;
       case "completed":
-        return <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Completed</span>;
+        return <span className="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">Completed</span>;
       default:
         return null;
     }
@@ -19,7 +19,7 @@ export default function ProjectCard({ title, description, githubLink, image, sta
 
   return (
     <motion.div
-      className="bg-white p-6 rounded-2xl shadow-xl border border-gray-100"
+      className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xl"
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
@@ -27,28 +27,28 @@ export default function ProjectCard({ title, description, githubLink, image, sta
         <img 
           src={image || projectImage} 
           alt={title} 
-          className="w-full h-48 object-cover rounded-xl mb-4 shadow-md" 
+          className="mb-4 h-48 w-full rounded-xl object-cover shadow-md" 
         />
-        <div className="absolute top-2 right-2">
+        <div className="absolute right-2 top-2">
           {getStatusBadge(status)}
         </div>
       </div>
       
-      <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
-      <p className="text-gray-700 mb-4 leading-relaxed">{description}</p>
+      <h3 className="mb-2 text-xl font-bold text-gray-900">{title}</h3>
+      <p className="mb-4 leading-relaxed text-gray-700">{description}</p>
       
       {/* Tech Stack */}
       {techStack && (
         <div className="mb-4">
-          <h4 className="text-sm font-semibold text-gray-600 mb-2">Tech Stack:</h4>
+          <h4 className="mb-2 text-sm font-semibold text-gray-600">Tech Stack:</h4>
           <div className="flex flex-wrap gap-1">
             {techStack.slice(0, 3).map((tech, index) => (
-              <span key={index} className="px-2 py-1 text-xs bg-indigo-50 text-indigo-700 rounded-md">
+              <span key={index} className="rounded-md bg-indigo-50 px-2 py-1 text-xs text-indigo-700">
                 {tech}
               </span>
             ))}
             {techStack.length > 3 && (
-              <span className="px-2 py-1 text-xs bg-gray-50 text-gray-600 rounded-md">
+              <span className="rounded-md bg-gray-50 px-2 py-1 text-xs text-gray-600">
                 +{techStack.length - 3} more
               </span>
             )}
@@ -62,13 +62,13 @@ export default function ProjectCard({ title, description, githubLink, image, sta
             href={githubLink} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+            className="font-medium text-blue-600 transition-colors hover:text-blue-800"
           >
             GitHub
           </a>
         )}
         {githubLink && isPlaceholderLink(githubLink) && (
-          <span className="text-gray-400 font-medium cursor-not-allowed">
+          <span className="cursor-not-allowed font-medium text-gray-400">
             GitHub (Coming Soon)
           </span>
         )}

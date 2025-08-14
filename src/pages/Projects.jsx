@@ -55,8 +55,8 @@ const projects = [
 export default function Projects() {
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-3xl font-bold text-center mb-8">My Projects</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <h2 className="mb-8 text-center text-3xl font-bold">My Projects</h2>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, index) => (
           <ProjectCard key={index} {...project} />
         ))}
