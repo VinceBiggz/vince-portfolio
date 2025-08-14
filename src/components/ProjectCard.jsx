@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import projectImage from "../assets/vincent_wachira_pic_1.jpeg";
+import projectImage from "../assets/cloud_native_issue_tracker.png";
 
 export default function ProjectCard({ title, description, githubLink, demoLink, image }) {
   return (
