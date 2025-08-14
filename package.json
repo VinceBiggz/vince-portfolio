@@ -9,9 +9,15 @@
     "prod": "vite build",
     "preview": "vite preview",
     "deploy": "npm run build && gh-pages -d dist",
+    "deploy:ci": "gh-pages -d dist --dotfiles",
     "tw:init": "tailwindcss init -p",
-    "lint": "eslint",
-    "format": "prettier --write ."
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext js,jsx --fix",
+    "format": "prettier --write .",
+    "test:build": "npm run build && echo 'Build successful'",
+    "ci:install": "npm ci",
+    "ci:build": "npm run build",
+    "ci:test": "npm run lint && npm run build"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.0.4",
