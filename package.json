@@ -17,7 +17,10 @@
     "test:build": "npm run build && echo 'Build successful'",
     "ci:install": "npm ci",
     "ci:build": "npm run build",
-    "ci:test": "npm run lint && npm run build"
+    "ci:test": "npm run lint && npm run build",
+    "analyze": "npm run build && npx vite-bundle-analyzer dist",
+    "lighthouse": "npx lighthouse http://localhost:5173/vince-portfolio/ --output=html --output-path=./lighthouse-report.html",
+    "performance": "npm run build && npm run lighthouse"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.0.4",
@@ -34,9 +37,14 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-tailwindcss": "^3.12.0",
     "gh-pages": "^6.0.0",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "imagemin-svgo": "^3.0.4",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "tailwindcss": "^3.4.3",
-    "vite": "^5.2.10"
+    "vite": "^5.2.10",
+    "vite-plugin-imagemin": "^0.6.1"
   }
 }

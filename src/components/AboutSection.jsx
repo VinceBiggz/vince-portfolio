@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import OptimizedImage from "./OptimizedImage.jsx";
 import profilePic from "../assets/vincent_wachira_pic_1.jpeg";
 
 export default function AboutSection() {
@@ -155,7 +156,7 @@ export default function AboutSection() {
           className="flex flex-col items-center"
           variants={containerVariants}
         >
-          <motion.img
+          <OptimizedImage
             src={profilePic}
             alt="Portrait of Vincent Wachira"
             className="mb-6 h-auto w-[280px] rounded-2xl border-4 border-indigo-200 object-cover shadow-2xl md:w-[360px] lg:w-[420px]"

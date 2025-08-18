@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import OptimizedImage from "./OptimizedImage.jsx";
 import profilePic from "../assets/vincent_wachira_pic_1.jpeg";
 
 const HeroSection = () => {
@@ -55,7 +56,7 @@ const HeroSection = () => {
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.3 }}
         >
-          <motion.img
+          <OptimizedImage
             src={profilePic}
             alt="Vincent Wachira"
             className="h-auto w-[280px] rounded-2xl border-4 border-indigo-200 object-cover shadow-2xl md:w-[360px] lg:w-[420px]"
@@ -103,7 +104,7 @@ const HeroSection = () => {
               <span className="flex items-center justify-center gap-2">
                 View Projects
                 <motion.svg
-                  className="h-4 w-4"
+                  className="size-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

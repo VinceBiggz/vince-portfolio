@@ -1,21 +1,31 @@
 import { motion } from "framer-motion";
+import OptimizedImage from "./OptimizedImage.jsx";
 import projectImage from "../assets/cloud_native_issue_tracker.png";
+import analytics from "../utils/analytics.js";
 
 export default function ProjectCard({ title, description, githubLink, image, status, techStack }) {
   const getStatusBadge = (status) => {
     switch (status) {
       case "in-development":
-        return <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">In Development</span>;
+        return <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800">In Development</span>;
       case "planned":
-        return <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">Coming Soon</span>;
+        return <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-800">Coming Soon</span>;
       case "completed":
-        return <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Completed</span>;
+        return <span className="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">Completed</span>;
       default:
         return null;
     }
   };
 
   const isPlaceholderLink = (link) => link === "#" || link === "";
+
+  const handleProjectClick = () => {
+    analytics.trackProjectView(title);
+  };
+
+  const handleGitHubClick = () => {
+    analytics.trackEvent('engagement', 'github_click', title);
+  };
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20, scale: 0.95 },
@@ -56,7 +66,7 @@ export default function ProjectCard({ title, description, githubLink, image, sta
 
   return (
     <motion.div
-      className="bg-white p-6 rounded-2xl shadow-xl border border-gray-100"
+      className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xl"
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
@@ -67,12 +77,13 @@ export default function ProjectCard({ title, description, githubLink, image, sta
         borderColor: "#6366f1"
       }}
       transition={{ duration: 0.3 }}
+      onClick={handleProjectClick}
     >
       <div className="relative">
-        <motion.img
+        <OptimizedImage
           src={image || projectImage}
           alt={title}
-          className="w-full h-48 object-cover rounded-xl mb-4 shadow-md"
+          className="mb-4 h-48 w-full rounded-xl object-cover shadow-md"
           variants={imageVariants}
           whileHover={{ 
             scale: 1.05,
@@ -81,7 +92,7 @@ export default function ProjectCard({ title, description, githubLink, image, sta
           transition={{ duration: 0.3 }}
         />
         <motion.div 
-          className="absolute top-2 right-2"
+          className="absolute right-2 top-2"
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.3 }}
@@ -92,7 +103,7 @@ export default function ProjectCard({ title, description, githubLink, image, sta
 
       <motion.div variants={contentVariants}>
         <motion.h3 
-          className="text-xl font-bold text-gray-900 mb-2"
+          className="mb-2 text-xl font-bold text-gray-900"
           whileHover={{ color: "#4f46e5" }}
           transition={{ duration: 0.2 }}
         >
@@ -100,7 +111,7 @@ export default function ProjectCard({ title, description, githubLink, image, sta
         </motion.h3>
         
         <motion.p 
-          className="text-gray-700 mb-4 leading-relaxed"
+          className="mb-4 leading-relaxed text-gray-700"
           variants={contentVariants}
         >
           {description}
@@ -112,12 +123,12 @@ export default function ProjectCard({ title, description, githubLink, image, sta
             className="mb-4"
             variants={contentVariants}
           >
-            <h4 className="text-sm font-semibold text-gray-600 mb-2">Tech Stack:</h4>
+            <h4 className="mb-2 text-sm font-semibold text-gray-600">Tech Stack:</h4>
             <div className="flex flex-wrap gap-1">
               {techStack.slice(0, 3).map((tech, index) => (
                 <motion.span
                   key={index}
-                  className="px-2 py-1 text-xs bg-indigo-50 text-indigo-700 rounded-md"
+                  className="rounded-md bg-indigo-50 px-2 py-1 text-xs text-indigo-700"
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.3 + index * 0.1, duration: 0.3 }}
@@ -132,7 +143,7 @@ export default function ProjectCard({ title, description, githubLink, image, sta
               ))}
               {techStack.length > 3 && (
                 <motion.span
-                  className="px-2 py-1 text-xs bg-gray-50 text-gray-600 rounded-md"
+                  className="rounded-md bg-gray-50 px-2 py-1 text-xs text-gray-600"
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.6, duration: 0.3 }}
@@ -154,19 +165,20 @@ export default function ProjectCard({ title, description, githubLink, image, sta
               href={githubLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+              className="font-medium text-blue-600 transition-colors hover:text-blue-800"
               whileHover={{ 
                 scale: 1.05,
                 color: "#1d4ed8"
               }}
               transition={{ duration: 0.2 }}
+              onClick={handleGitHubClick}
             >
               GitHub
             </motion.a>
           )}
           {githubLink && isPlaceholderLink(githubLink) && (
             <motion.span 
-              className="text-gray-400 font-medium cursor-not-allowed"
+              className="cursor-not-allowed font-medium text-gray-400"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.2 }}
             >

@@ -48,13 +48,13 @@ export default function LoadingSpinner({ size = "md", text = "Loading..." }) {
       exit="exit"
     >
       <motion.div
-        className={`${sizeClasses[size]} border-4 border-gray-200 border-t-indigo-600 rounded-full`}
+        className={`${sizeClasses[size]} rounded-full border-4 border-gray-200 border-t-indigo-600`}
         variants={spinnerVariants}
         animate="animate"
       />
       {text && (
         <motion.p
-          className="text-gray-600 text-sm font-medium"
+          className="text-sm font-medium text-gray-600"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.3 }}
@@ -65,3 +65,5 @@ export default function LoadingSpinner({ size = "md", text = "Loading..." }) {
     </motion.div>
   );
 }
+
+
