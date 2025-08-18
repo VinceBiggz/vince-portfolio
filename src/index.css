@@ -38,3 +38,61 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;  /* Safari and Chrome */
 }
+
+/* Blog content dark mode fixes */
+.dark .prose {
+  color: #d1d5db; /* text-gray-300 */
+}
+
+.dark .prose h1,
+.dark .prose h2,
+.dark .prose h3,
+.dark .prose h4,
+.dark .prose h5,
+.dark .prose h6 {
+  color: #ffffff; /* text-white */
+}
+
+.dark .prose p {
+  color: #d1d5db; /* text-gray-300 */
+}
+
+.dark .prose ul,
+.dark .prose ol {
+  color: #d1d5db; /* text-gray-300 */
+}
+
+.dark .prose li {
+  color: #d1d5db; /* text-gray-300 */
+}
+
+.dark .prose strong {
+  color: #ffffff; /* text-white */
+}
+
+.dark .prose em {
+  color: #d1d5db; /* text-gray-300 */
+}
+
+.dark .prose blockquote {
+  color: #d1d5db; /* text-gray-300 */
+  border-left-color: #4b5563; /* border-gray-600 */
+}
+
+.dark .prose code {
+  color: #f3f4f6; /* text-gray-100 */
+  background-color: #374151; /* bg-gray-700 */
+}
+
+.dark .prose pre {
+  color: #f3f4f6; /* text-gray-100 */
+  background-color: #1f2937; /* bg-gray-800 */
+}
+
+.dark .prose a {
+  color: #93c5fd; /* text-blue-300 */
+}
+
+.dark .prose a:hover {
+  color: #60a5fa; /* text-blue-400 */
+}
