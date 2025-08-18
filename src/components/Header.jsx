@@ -1,108 +1,184 @@
-import { NavLink, Link } from "react-router-dom";
-import { Github, Linkedin, Twitter, Instagram, Globe, Moon, Sun } from "lucide-react";
 import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
+import { 
+  Github, 
+  Linkedin, 
+  Twitter, 
+  Instagram, 
+  Globe, 
+  Sun, 
+  Moon 
+} from "lucide-react";
 
 export default function Header() {
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const saved = localStorage.getItem('darkMode');
-    return saved ? JSON.parse(saved) : false;
-  });
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode === "true") {
+      setIsDarkMode(true);
+      document.documentElement.classList.add("dark");
     }
-  }, [isDarkMode]);
+  }, []);
 
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    localStorage.setItem("darkMode", newMode.toString());
+    document.documentElement.classList.toggle("dark");
+  };
+
+  const navItems = [
+    { to: "/", label: "Home" },
+    { to: "/about", label: "About" },
+    { to: "/projects", label: "Projects" },
+    { to: "/contact", label: "Contact" },
+  ];
+
+  const socialLinks = [
+    { href: "https://github.com/VinceBiggz", icon: Github, label: "GitHub" },
+    { href: "https://www.linkedin.com/in/vincentwachira", icon: Linkedin, label: "LinkedIn" },
+    { href: "https://twitter.com/VinceBiggz", icon: Twitter, label: "Twitter" },
+    { href: "https://instagram.com/vincentwachira", icon: Instagram, label: "Instagram" },
+    { href: "https://vincentwachira.com", icon: Globe, label: "Website" },
+  ];
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: -10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
   };
 
   return (
-    <nav className="bg-gray-800 p-4 text-white dark:bg-gray-900" aria-label="Primary">
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:text-blue-700 focus:ring-2 focus:ring-blue-600 dark:focus:bg-gray-900">
+    <>
+      {/* Skip Link for Accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-indigo-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-md"
+      >
         Skip to main content
       </a>
-      <div className="container mx-auto flex items-center justify-between">
-        <h1 className="text-xl font-bold"><Link to="/">Vincent Wachira</Link></h1>
-        <ul className="flex space-x-4">
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded ${isActive ? "text-blue-300" : ""}`
-              }
-              end
+
+      <motion.nav
+        className="bg-gray-800 text-white shadow-lg"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo/Brand */}
+            <motion.div
+              className="flex-shrink-0"
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
             >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/projects"
-              className={({ isActive }) =>
-                `hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded ${isActive ? "text-blue-300" : ""}`
-              }
+              <NavLink
+                to="/"
+                className="text-xl font-bold text-white hover:text-indigo-300 transition-colors"
+                aria-label="Vincent Wachira Portfolio"
+              >
+                Vincent Wachira
+              </NavLink>
+            </motion.div>
+
+            {/* Navigation Links */}
+            <motion.div
+              className="hidden md:block"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
             >
-              Projects
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                `hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded ${isActive ? "text-blue-300" : ""}`
-              }
+              <div className="ml-10 flex items-baseline space-x-4">
+                {navItems.map((item, index) => (
+                  <motion.div key={item.to} variants={itemVariants}>
+                    <NavLink
+                      to={item.to}
+                      className={({ isActive }) =>
+                        `px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                          isActive
+                            ? "bg-indigo-600 text-white shadow-lg"
+                            : "text-gray-300 hover:text-white hover:bg-gray-700"
+                        }`
+                      }
+                      aria-label={`Navigate to ${item.label} page`}
+                    >
+                      {item.label}
+                    </NavLink>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Right side - Social Links and Dark Mode Toggle */}
+            <motion.div
+              className="flex items-center space-x-4"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
             >
-              About
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/contact"
-              className={({ isActive }) =>
-                `hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded ${isActive ? "text-blue-300" : ""}`
-              }
-            >
-              Contact
-            </NavLink>
-          </li>
-        </ul>
-        <div className="flex items-center space-x-4">
-          {/* Dark Mode Toggle */}
-          <button
-            onClick={toggleDarkMode}
-            className="rounded-lg p-2 transition-colors hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:hover:bg-gray-800"
-            aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-          >
-            {isDarkMode ? (
-              <Sun className="size-5 text-yellow-400" />
-            ) : (
-              <Moon className="size-5 text-gray-300" />
-            )}
-          </button>
-          
-          {/* Social Icons */}
-          <a href="https://github.com/VinceBiggz" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" className="transition-colors hover:text-blue-400">
-            <Github className="size-6" />
-          </a>
-          <a href="https://www.linkedin.com/in/vincentwachira" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" className="transition-colors hover:text-blue-400">
-            <Linkedin className="size-6" />
-          </a>
-          <a href="https://twitter.com/vincentwachira" target="_blank" rel="noopener noreferrer" aria-label="Twitter profile" className="transition-colors hover:text-blue-400">
-            <Twitter className="size-6" />
-          </a>
-          <a href="https://instagram.com/vincentwachira" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile" className="transition-colors hover:text-blue-400">
-            <Instagram className="size-6" />
-          </a>
-          <a href="https://vincentwachira.dev" target="_blank" rel="noopener noreferrer" aria-label="Portfolio website" className="transition-colors hover:text-blue-400">
-            <Globe className="size-6" />
-          </a>
+              {/* Dark Mode Toggle */}
+              <motion.button
+                onClick={toggleDarkMode}
+                className="p-2 rounded-md text-gray-300 hover:text-white hover:bg-gray-700 transition-colors"
+                aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+                variants={itemVariants}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {isDarkMode ? (
+                  <Sun className="h-5 w-5" />
+                ) : (
+                  <Moon className="h-5 w-5" />
+                )}
+              </motion.button>
+
+              {/* Social Links */}
+              <div className="hidden sm:flex items-center space-x-2">
+                {socialLinks.map((social, index) => (
+                  <motion.a
+                    key={social.href}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
+                    aria-label={`Visit ${social.label}`}
+                    variants={itemVariants}
+                    whileHover={{ 
+                      scale: 1.1,
+                      backgroundColor: "#374151",
+                      color: "#ffffff"
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <social.icon className="h-5 w-5" />
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
-      </div>
-    </nav>
+      </motion.nav>
+    </>
   );
 }
