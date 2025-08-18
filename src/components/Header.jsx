@@ -18,6 +18,7 @@ export default function Header() {
     { to: "/", label: "Home" },
     { to: "/about", label: "About" },
     { to: "/projects", label: "Projects" },
+    { to: "/blog", label: "Blog" },
     { to: "/testimonials", label: "Testimonials" },
     { to: "/contact", label: "Contact" },
   ];

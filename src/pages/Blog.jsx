@@ -1,25 +1,22 @@
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, X, Calendar, Clock, Tag } from "lucide-react";
-import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { ArrowLeft, Calendar, Clock, Tag, X } from "lucide-react";
 
-export default function BlogSection() {
-  const ref = useRef(null);
-  const scrollContainerRef = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [currentIndex, setCurrentIndex] = useState(0);
+export default function Blog() {
+  const { id } = useParams();
   const [selectedPost, setSelectedPost] = useState(null);
 
   const blogPosts = [
     {
       id: 1,
       title: "Building Scalable Cloud Infrastructure",
-      excerpt: "Learn how to design and implement cloud-native solutions that scale with your business needs. From microservices architecture to container orchestration, discover the best practices for building robust cloud infrastructure.",
+      excerpt: "Learn how to design and implement cloud-native solutions that scale with your business needs.",
       category: "Cloud Architecture",
       date: "2024-01-15",
       readTime: "5 min read",
-      featured: true,
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=400&fit=crop",
+      author: "Vincent Wachira",
       content: `
         <h2>Introduction</h2>
         <p>In today's rapidly evolving digital landscape, building scalable cloud infrastructure is crucial for business success. This comprehensive guide explores the key principles and best practices for designing cloud-native solutions that can grow with your organization.</p>
@@ -46,12 +43,12 @@ export default function BlogSection() {
     {
       id: 2,
       title: "DevOps Best Practices for 2024",
-      excerpt: "Essential DevOps practices and tools that every engineering team should implement. From CI/CD pipelines to infrastructure as code, learn how to streamline your development workflow.",
+      excerpt: "Essential DevOps practices and tools that every engineering team should implement.",
       category: "DevOps",
       date: "2024-01-10",
       readTime: "7 min read",
-      featured: false,
-      image: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=400&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&h=400&fit=crop",
+      author: "Vincent Wachira",
       content: `
         <h2>Introduction</h2>
         <p>DevOps has evolved significantly over the past decade, becoming an essential practice for modern software development. This article explores the latest best practices and tools that engineering teams should adopt in 2024.</p>
@@ -73,12 +70,12 @@ export default function BlogSection() {
     {
       id: 3,
       title: "Cybersecurity in the Cloud Era",
-      excerpt: "Protecting your applications and data in modern cloud environments. Explore security best practices, threat detection, and compliance frameworks for cloud-native applications.",
+      excerpt: "Protecting your applications and data in modern cloud environments.",
       category: "Security",
       date: "2024-01-05",
       readTime: "6 min read",
-      featured: false,
-      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=400&fit=crop",
+      author: "Vincent Wachira",
       content: `
         <h2>Introduction</h2>
         <p>As organizations increasingly adopt cloud technologies, cybersecurity has become more complex and critical than ever. This comprehensive guide explores the security challenges and solutions for cloud-native applications.</p>
@@ -100,12 +97,12 @@ export default function BlogSection() {
     {
       id: 4,
       title: "AI/ML Integration in Enterprise Systems",
-      excerpt: "How to successfully integrate artificial intelligence and machine learning into existing enterprise infrastructure. From data pipelines to model deployment strategies.",
+      excerpt: "How to successfully integrate artificial intelligence and machine learning into existing enterprise infrastructure.",
       category: "AI/ML",
       date: "2024-01-03",
       readTime: "8 min read",
-      featured: false,
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
+      author: "Vincent Wachira",
       content: `
         <h2>Introduction</h2>
         <p>Artificial Intelligence and Machine Learning are transforming enterprise systems, enabling organizations to gain insights from data and automate complex processes. This guide explores successful AI/ML integration strategies.</p>
@@ -127,12 +124,12 @@ export default function BlogSection() {
     {
       id: 5,
       title: "Automation Strategies for IT Operations",
-      excerpt: "Streamline your IT operations with intelligent automation. Learn about RPA, workflow automation, and reducing manual tasks in enterprise environments.",
+      excerpt: "Streamline your IT operations with intelligent automation.",
       category: "Automation",
       date: "2023-12-28",
       readTime: "6 min read",
-      featured: false,
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=400&fit=crop",
+      author: "Vincent Wachira",
       content: `
         <h2>Introduction</h2>
         <p>IT operations automation is essential for modern organizations seeking to improve efficiency, reduce errors, and scale their operations. This comprehensive guide explores automation strategies and tools.</p>
@@ -154,12 +151,12 @@ export default function BlogSection() {
     {
       id: 6,
       title: "Digital Transformation Success Stories",
-      excerpt: "Real-world case studies of successful digital transformation initiatives. Learn from organizations that have successfully modernized their technology stack.",
+      excerpt: "Real-world case studies of successful digital transformation initiatives.",
       category: "Digital Transformation",
       date: "2023-12-20",
       readTime: "9 min read",
-      featured: false,
-      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=400&fit=crop",
+      author: "Vincent Wachira",
       content: `
         <h2>Introduction</h2>
         <p>Digital transformation is a journey that requires careful planning, strong leadership, and a clear vision. This article explores real-world success stories and the lessons learned from successful digital transformation initiatives.</p>
@@ -183,42 +180,12 @@ export default function BlogSection() {
     },
   ];
 
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -400, behavior: 'smooth' });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 400, behavior: 'smooth' });
-    }
-  };
-
-  // Auto-scroll functionality
-  useEffect(() => {
-    if (!isInView) return;
-    
-    const interval = setInterval(() => {
-      if (scrollContainerRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-        if (scrollLeft >= scrollWidth - clientWidth) {
-          scrollContainerRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          scrollContainerRef.current.scrollBy({ left: 400, behavior: 'smooth' });
-        }
-      }
-    }, 6000); // Auto-scroll every 6 seconds
-
-    return () => clearInterval(interval);
-  }, [isInView]);
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.1,
         delayChildren: 0.1,
       },
     },
@@ -236,147 +203,83 @@ export default function BlogSection() {
     },
   };
 
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
-  };
-
   return (
-    <motion.section
-      ref={ref}
-      className="bg-gray-50 py-20 dark:bg-gray-800"
-      initial={{ opacity: 0 }}
-      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.7 }}
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white dark:bg-gray-900 py-16 px-4">
+      <div className="mx-auto max-w-7xl">
         <motion.div
           className="mb-16 text-center"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          <motion.h2
-            className="mb-4 text-4xl font-bold text-gray-900 dark:text-white"
-            variants={itemVariants}
-          >
-            Latest Insights
-          </motion.h2>
-          <motion.p
-            className="mx-auto max-w-3xl text-xl text-gray-600 dark:text-gray-300"
-            variants={itemVariants}
-          >
+          <h1 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
+            Blog & Insights
+          </h1>
+          <p className="mx-auto max-w-3xl text-xl text-gray-600 dark:text-gray-300">
             Sharing knowledge and experiences from the world of cloud computing, 
-            DevOps, and digital transformation.
-          </motion.p>
+            DevOps, cybersecurity, and digital transformation.
+          </p>
         </motion.div>
 
-        <div className="relative">
-          {/* Navigation Arrows */}
-          <motion.button
-            onClick={scrollLeft}
-            className="absolute left-0 top-1/2 z-10 -translate-y-1/2 -translate-x-4 rounded-full bg-white dark:bg-gray-800 p-2 shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <ChevronLeft className="size-6 text-gray-600 dark:text-gray-300" />
-          </motion.button>
-
-          <motion.button
-            onClick={scrollRight}
-            className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-4 rounded-full bg-white dark:bg-gray-800 p-2 shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <ChevronRight className="size-6 text-gray-600 dark:text-gray-300" />
-          </motion.button>
-
-          <motion.div
-            ref={scrollContainerRef}
-            className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide px-8"
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-          >
-            {blogPosts.map((post) => (
-              <motion.article
-                key={post.id}
-                className="min-w-[350px] max-w-[350px] overflow-hidden rounded-2xl bg-white shadow-lg dark:bg-gray-700"
-                variants={cardVariants}
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                <img 
-                  src={post.image} 
-                  alt={post.title}
-                  className="h-48 w-full object-cover"
-                />
-                <div className="p-6">
-                  <div className="mb-4 flex items-center justify-between">
-                    <span className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">
-                      {post.category}
-                    </span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">{post.readTime}</span>
-                  </div>
-                  
-                  <h3 className="mb-3 text-xl font-bold text-gray-900 dark:text-white">
-                    {post.title}
-                  </h3>
-                  
-                  <p className="mb-4 leading-relaxed text-gray-600 dark:text-gray-300 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                      {new Date(post.date).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </span>
-                    
-                    <motion.button
-                      onClick={() => setSelectedPost(post)}
-                      className="font-medium text-indigo-600 transition-colors hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      Read More →
-                    </motion.button>
-                  </div>
-                </div>
-              </motion.article>
-            ))}
-          </motion.div>
-        </div>
-
         <motion.div
-          className="mt-12 text-center"
-          variants={itemVariants}
+          className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+          variants={containerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate="visible"
         >
-          <Link to="/blog">
-            <motion.button
-              className="inline-flex items-center rounded-xl border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-indigo-700"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
+          {blogPosts.map((post) => (
+            <motion.article
+              key={post.id}
+              className="overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-xl transition-shadow dark:bg-gray-700"
+              variants={itemVariants}
+              whileHover={{
+                scale: 1.02,
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
+              }}
+              transition={{ duration: 0.3 }}
             >
-              View All Articles
-            </motion.button>
-          </Link>
+              <img 
+                src={post.image} 
+                alt={post.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">
+                    {post.category}
+                  </span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">{post.readTime}</span>
+                </div>
+                
+                <h3 className="mb-3 text-xl font-bold text-gray-900 dark:text-white">
+                  {post.title}
+                </h3>
+                
+                <p className="mb-4 leading-relaxed text-gray-600 dark:text-gray-300">
+                  {post.excerpt}
+                </p>
+                
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    {new Date(post.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                  
+                  <motion.button
+                    onClick={() => setSelectedPost(post)}
+                    className="font-medium text-indigo-600 transition-colors hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    Read More →
+                  </motion.button>
+                </div>
+              </div>
+            </motion.article>
+          ))}
         </motion.div>
       </div>
 
@@ -472,15 +375,6 @@ export default function BlogSection() {
 
                 {/* Action Buttons */}
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-between">
-                  <Link to="/blog">
-                    <motion.button
-                      className="w-full rounded-lg border border-indigo-600 bg-transparent px-6 py-3 text-indigo-600 hover:bg-indigo-50 dark:text-indigo-400 dark:hover:bg-indigo-900/20 transition-colors sm:w-auto"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      View All Articles
-                    </motion.button>
-                  </Link>
                   <motion.button
                     onClick={() => setSelectedPost(null)}
                     className="w-full rounded-lg bg-indigo-600 px-6 py-3 text-white hover:bg-indigo-700 transition-colors sm:w-auto"
@@ -495,7 +389,6 @@ export default function BlogSection() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.section>
+    </div>
   );
 }
-
