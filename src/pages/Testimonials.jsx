@@ -5,6 +5,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 export default function Testimonials() {
   const [selectedTestimonial, setSelectedTestimonial] = useState(null);
 
+  const truncateText = (text, maxLength = 150) => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + "...";
+  };
+
   const testimonials = [
     {
       id: 1,
@@ -185,37 +190,47 @@ export default function Testimonials() {
           {testimonials.map((testimonial) => (
             <motion.div
               key={testimonial.id}
-              className="rounded-2xl bg-gray-50 dark:bg-gray-800 p-8 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+              className="rounded-2xl bg-gray-50 dark:bg-gray-800 p-6 shadow-lg hover:shadow-xl transition-shadow h-80 flex flex-col"
               variants={itemVariants}
               whileHover={{
                 scale: 1.02,
                 boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
               }}
               transition={{ duration: 0.3 }}
-              onClick={() => setSelectedTestimonial(testimonial)}
             >
-              <div className="mb-6">
+              <div className="mb-4">
                 <StarRating rating={testimonial.rating} />
               </div>
               
-              <blockquote className="mb-6 leading-relaxed text-gray-700 dark:text-gray-300">
-                &ldquo;{testimonial.content}&rdquo;
+              <blockquote className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300 flex-grow overflow-hidden">
+                &ldquo;{truncateText(testimonial.content, 120)}&rdquo;
               </blockquote>
               
-              <div className="flex items-center">
-                <div className="mr-4 text-3xl">{testimonial.avatar}</div>
-                <div>
-                  <div className="font-semibold text-gray-900 dark:text-white">
+              <div className="flex items-center mb-4">
+                <div className="mr-3 text-2xl">{testimonial.avatar}</div>
+                <div className="flex-1">
+                  <div className="font-semibold text-gray-900 dark:text-white text-sm">
                     {testimonial.name}
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                  <div className="text-xs text-gray-600 dark:text-gray-400">
                     {testimonial.role}
                   </div>
-                  <div className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
+                  <div className="text-xs font-medium text-indigo-600 dark:text-indigo-400">
                     {testimonial.company}
                   </div>
                 </div>
               </div>
+
+              {testimonial.content.length > 120 && (
+                <motion.button
+                  onClick={() => setSelectedTestimonial(testimonial)}
+                  className="w-full text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors mt-auto"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Read More
+                </motion.button>
+              )}
             </motion.div>
           ))}
         </motion.div>

@@ -15,6 +15,7 @@ A modern, responsive portfolio website showcasing Vincent Wachira's expertise in
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
 - **Smooth Animations**: Framer Motion powered transitions and micro-interactions
 - **Dark Mode Toggle**: Persistent theme switching with system preference detection
+- **Interactive Testimonials**: Navigation arrows, auto-scroll, and modal popups
 - **Accessibility**: ARIA labels, skip links, and keyboard navigation support
 - **Performance Optimized**: Lazy loading, image optimization, and bundle splitting
 
@@ -23,13 +24,15 @@ A modern, responsive portfolio website showcasing Vincent Wachira's expertise in
 - **About Section**: Detailed bio, achievements, and core expertise
 - **Projects**: Six featured projects with status indicators and tech stacks
 - **Blog Section**: Latest insights and articles (sample content)
-- **Testimonials**: Client feedback and recommendations
+- **Testimonials**: Interactive client feedback with navigation arrows and auto-scroll
+- **Dedicated Testimonials Page**: Full display of all 12 testimonials with modal viewing
 - **Social Media**: Platform statistics and engagement metrics
 - **Contact Form**: Integrated with Formspree for seamless communication
 
 ### 🔧 **Technical Features**
 - **Performance Monitoring**: Custom analytics and performance tracking
 - **Image Optimization**: Lazy loading and preloading for better UX
+- **Interactive Testimonials**: Auto-scroll, navigation arrows, and modal functionality
 - **Code Quality**: ESLint configuration with flat config format
 - **CI/CD Pipelines**: Dual deployment with GitHub Actions and CircleCI
 - **Security**: Comprehensive .gitignore and security best practices
@@ -81,7 +84,8 @@ vince-portfolio/
 │   │   ├── About.jsx
 │   │   ├── Contact.jsx
 │   │   ├── Home.jsx
-│   │   └── Projects.jsx
+│   │   ├── Projects.jsx
+│   │   └── Testimonials.jsx
 │   ├── utils/              # Utility functions
 │   │   └── analytics.js
 │   └── assets/             # Static assets
@@ -133,6 +137,39 @@ vince-portfolio/
 | `npm run test:build` | Test production build |
 | `npm run analyze` | Analyze bundle size |
 | `npm run performance` | Run performance tests |
+
+## 💬 **Client Testimonials**
+
+The portfolio features 12 comprehensive testimonials from industry leaders, colleagues, and clients:
+
+### **Executive Leadership**
+- **Tridiv Vasavada** (CTO, Wasoko) - Leadership and automation expertise
+- **Harrison Muhia** (IT Manager, Wasoko) - Strategic leadership and team management
+- **Nick Rotich** (VP, JPMorgan Chase) - Long-term professional perspective
+
+### **Technical Leadership**
+- **Samuel Aduamah-Yeboah** (Senior Networks and Security Manager, Victory Farms) - Critical thinking and cost optimization
+- **Edwin Rimui** (Senior Application Developer, National Bank of Kenya) - Dedication and team support
+- **Samuel Ratemo** (Senior Software Engineer III, ASRC Federal) - Technical expertise and best practices
+
+### **HR & People Management**
+- **Priya Ramaraj** (HR Manager, Wasoko) - Exceptional leadership and change management
+- **Jackline Njeri** (HR Manager, Odex Chemicals Ltd) - Technical skills and compliance
+
+### **Team Leadership & Support**
+- **Jonathan Lungu** (Senior Technical Support Engineer, Wasoko) - Leadership style and mentorship
+- **Reuben Muraya** (Senior Technical Support Engineer, Wasoko) - Strategic acumen and team motivation
+- **Fabian Kimambo** (Senior Technical Support Engineer, Wasoko) - Technical expertise and customer satisfaction
+
+### **External Evaluation**
+- **Maurice Eilec** (Technology Leader, 4SquareIT) - Competitive excellence and future impact
+
+### **Interactive Features**
+- **Navigation Arrows**: Manual scrolling with smooth transitions
+- **Auto-Scroll**: Automatic progression every 5 seconds
+- **Modal Popups**: Full testimonial viewing with enhanced readability
+- **Dedicated Page**: Complete testimonials display at `/testimonials`
+- **Responsive Design**: Touch-friendly scrolling on mobile devices
 
 ## 🎯 **Key Projects Showcased**
 
