@@ -1,11 +1,13 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, Calendar, Clock, Tag, X } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Tag, X, Search, Filter, Share2, Twitter, Facebook, Linkedin, Mail } from "lucide-react";
 
 export default function Blog() {
   const { id } = useParams();
   const [selectedPost, setSelectedPost] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const blogPosts = [
     {
@@ -180,6 +182,53 @@ export default function Blog() {
     },
   ];
 
+  // Get unique categories for filtering
+  const categories = useMemo(() => {
+    const cats = ["All", ...new Set(blogPosts.map(post => post.category))];
+    return cats;
+  }, []);
+
+  // Filter blog posts based on search term and category
+  const filteredPosts = useMemo(() => {
+    return blogPosts.filter(post => {
+      const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+      
+      const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
+      
+      return matchesSearch && matchesCategory;
+    });
+  }, [blogPosts, searchTerm, selectedCategory]);
+
+  // Social sharing functions
+  const sharePost = (platform, post) => {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(post.title);
+    const text = encodeURIComponent(post.excerpt);
+    
+    let shareUrl = '';
+    
+    switch (platform) {
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+        break;
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        break;
+      case 'linkedin':
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+        break;
+      case 'email':
+        shareUrl = `mailto:?subject=${title}&body=${text}%0A%0A${url}`;
+        break;
+      default:
+        return;
+    }
+    
+    window.open(shareUrl, '_blank', 'width=600,height=400');
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -221,13 +270,62 @@ export default function Blog() {
           </p>
         </motion.div>
 
+        {/* Search and Filter Section */}
+        <motion.div
+          className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {/* Search Bar */}
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search articles..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full rounded-lg border border-gray-300 bg-white px-10 py-3 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-indigo-400 dark:focus:ring-indigo-900"
+            />
+          </div>
+
+          {/* Category Filter */}
+          <div className="flex items-center gap-2">
+            <Filter className="size-5 text-gray-400" />
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-indigo-400 dark:focus:ring-indigo-900"
+            >
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
+        </motion.div>
+
+        {/* Results Count */}
+        {searchTerm || selectedCategory !== "All" ? (
+          <motion.div
+            className="mb-6 text-center text-sm text-gray-600 dark:text-gray-400"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
+          >
+            Showing {filteredPosts.length} of {blogPosts.length} articles
+          </motion.div>
+        ) : null}
+
         <motion.div
           className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          {blogPosts.map((post) => (
+          {filteredPosts.length > 0 ? (
+            filteredPosts.map((post) => (
             <motion.article
               key={post.id}
               className="overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-xl transition-shadow dark:bg-gray-700"
@@ -279,7 +377,34 @@ export default function Blog() {
                 </div>
               </div>
             </motion.article>
-          ))}
+          ))
+          ) : (
+            <motion.div
+              className="col-span-full flex flex-col items-center justify-center py-12 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <Search className="size-16 text-gray-400 mb-4" />
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                No articles found
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Try adjusting your search terms or category filter
+              </p>
+              <motion.button
+                onClick={() => {
+                  setSearchTerm("");
+                  setSelectedCategory("All");
+                }}
+                className="rounded-lg bg-indigo-600 px-6 py-3 text-white hover:bg-indigo-700 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Clear Filters
+              </motion.button>
+            </motion.div>
+          )}
         </motion.div>
       </div>
 
@@ -370,6 +495,54 @@ export default function Blog() {
                         {tag}
                       </span>
                     ))}
+                  </div>
+                </div>
+
+                {/* Social Sharing */}
+                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Share2 className="size-4 text-gray-600 dark:text-gray-400" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Share this article:</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <motion.button
+                        onClick={() => sharePost('twitter', selectedPost)}
+                        className="rounded-full p-2 text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        title="Share on Twitter"
+                      >
+                        <Twitter className="size-5" />
+                      </motion.button>
+                      <motion.button
+                        onClick={() => sharePost('facebook', selectedPost)}
+                        className="rounded-full p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        title="Share on Facebook"
+                      >
+                        <Facebook className="size-5" />
+                      </motion.button>
+                      <motion.button
+                        onClick={() => sharePost('linkedin', selectedPost)}
+                        className="rounded-full p-2 text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        title="Share on LinkedIn"
+                      >
+                        <Linkedin className="size-5" />
+                      </motion.button>
+                      <motion.button
+                        onClick={() => sharePost('email', selectedPost)}
+                        className="rounded-full p-2 text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-700 transition-colors"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        title="Share via Email"
+                      >
+                        <Mail className="size-5" />
+                      </motion.button>
+                    </div>
                   </div>
                 </div>
 

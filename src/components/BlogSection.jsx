@@ -1,6 +1,6 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, X, Calendar, Clock, Tag } from "lucide-react";
+import { useRef, useState, useEffect, useMemo } from "react";
+import { ChevronLeft, ChevronRight, X, Calendar, Clock, Tag, Search, Filter, Share2, Twitter, Facebook, Linkedin, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function BlogSection() {
@@ -9,6 +9,8 @@ export default function BlogSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedPost, setSelectedPost] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const blogPosts = [
     {
@@ -195,6 +197,53 @@ export default function BlogSection() {
     }
   };
 
+  // Get unique categories for filtering
+  const categories = useMemo(() => {
+    const cats = ["All", ...new Set(blogPosts.map(post => post.category))];
+    return cats;
+  }, []);
+
+  // Filter blog posts based on search term and category
+  const filteredPosts = useMemo(() => {
+    return blogPosts.filter(post => {
+      const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+      
+      const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
+      
+      return matchesSearch && matchesCategory;
+    });
+  }, [blogPosts, searchTerm, selectedCategory]);
+
+  // Social sharing functions
+  const sharePost = (platform, post) => {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(post.title);
+    const text = encodeURIComponent(post.excerpt);
+    
+    let shareUrl = '';
+    
+    switch (platform) {
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+        break;
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        break;
+      case 'linkedin':
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+        break;
+      case 'email':
+        shareUrl = `mailto:?subject=${title}&body=${text}%0A%0A${url}`;
+        break;
+      default:
+        return;
+    }
+    
+    window.open(shareUrl, '_blank', 'width=600,height=400');
+  };
+
   // Auto-scroll functionality
   useEffect(() => {
     if (!isInView) return;
@@ -278,6 +327,54 @@ export default function BlogSection() {
           </motion.p>
         </motion.div>
 
+        {/* Search and Filter Section */}
+        <motion.div
+          className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
+          variants={itemVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          {/* Search Bar */}
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search articles..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full rounded-lg border border-gray-300 bg-white px-10 py-3 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-indigo-400 dark:focus:ring-indigo-900"
+            />
+          </div>
+
+          {/* Category Filter */}
+          <div className="flex items-center gap-2">
+            <Filter className="size-5 text-gray-400" />
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-indigo-400 dark:focus:ring-indigo-900"
+            >
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
+        </motion.div>
+
+        {/* Results Count */}
+        {searchTerm || selectedCategory !== "All" ? (
+          <motion.div
+            className="mb-6 text-center text-sm text-gray-600 dark:text-gray-400"
+            variants={itemVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
+            Showing {filteredPosts.length} of {blogPosts.length} articles
+          </motion.div>
+        ) : null}
+
         <div className="relative">
           {/* Navigation Arrows */}
           <motion.button
@@ -305,59 +402,87 @@ export default function BlogSection() {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
-            {blogPosts.map((post) => (
-              <motion.article
-                key={post.id}
-                className="min-w-[350px] max-w-[350px] overflow-hidden rounded-2xl bg-white shadow-lg dark:bg-gray-700"
-                variants={cardVariants}
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                <img 
-                  src={post.image} 
-                  alt={post.title}
-                  className="h-48 w-full object-cover"
-                />
-                <div className="p-6">
-                  <div className="mb-4 flex items-center justify-between">
-                    <span className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">
-                      {post.category}
-                    </span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">{post.readTime}</span>
-                  </div>
-                  
-                  <h3 className="mb-3 text-xl font-bold text-gray-900 dark:text-white">
-                    {post.title}
-                  </h3>
-                  
-                  <p className="mb-4 leading-relaxed text-gray-600 dark:text-gray-300 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                      {new Date(post.date).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </span>
+            {filteredPosts.length > 0 ? (
+              filteredPosts.map((post) => (
+                <motion.article
+                  key={post.id}
+                  className="min-w-[350px] max-w-[350px] overflow-hidden rounded-2xl bg-white shadow-lg dark:bg-gray-700"
+                  variants={cardVariants}
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <img 
+                    src={post.image} 
+                    alt={post.title}
+                    className="h-48 w-full object-cover"
+                  />
+                  <div className="p-6">
+                    <div className="mb-4 flex items-center justify-between">
+                      <span className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">
+                        {post.category}
+                      </span>
+                      <span className="text-sm text-gray-500 dark:text-gray-400">{post.readTime}</span>
+                    </div>
                     
-                    <motion.button
-                      onClick={() => setSelectedPost(post)}
-                      className="font-medium text-indigo-600 transition-colors hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      Read More →
-                    </motion.button>
+                    <h3 className="mb-3 text-xl font-bold text-gray-900 dark:text-white">
+                      {post.title}
+                    </h3>
+                    
+                    <p className="mb-4 leading-relaxed text-gray-600 dark:text-gray-300 line-clamp-3">
+                      {post.excerpt}
+                    </p>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-500 dark:text-gray-400">
+                        {new Date(post.date).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </span>
+                      
+                      <motion.button
+                        onClick={() => setSelectedPost(post)}
+                        className="font-medium text-indigo-600 transition-colors hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        Read More →
+                      </motion.button>
+                    </div>
                   </div>
-                </div>
-              </motion.article>
-            ))}
+                </motion.article>
+              ))
+            ) : (
+              <motion.div
+                className="col-span-full flex flex-col items-center justify-center py-12 text-center"
+                variants={itemVariants}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+              >
+                <Search className="size-16 text-gray-400 mb-4" />
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                  No articles found
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  Try adjusting your search terms or category filter
+                </p>
+                <motion.button
+                  onClick={() => {
+                    setSearchTerm("");
+                    setSelectedCategory("All");
+                  }}
+                  className="rounded-lg bg-indigo-600 px-6 py-3 text-white hover:bg-indigo-700 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Clear Filters
+                </motion.button>
+              </motion.div>
+            )}
           </motion.div>
         </div>
 
@@ -470,26 +595,74 @@ export default function BlogSection() {
                   </div>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-between">
-                  <Link to="/blog">
-                    <motion.button
-                      className="w-full rounded-lg border border-indigo-600 bg-transparent px-6 py-3 text-indigo-600 hover:bg-indigo-50 dark:text-indigo-400 dark:hover:bg-indigo-900/20 transition-colors sm:w-auto"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      View All Articles
-                    </motion.button>
-                  </Link>
-                  <motion.button
-                    onClick={() => setSelectedPost(null)}
-                    className="w-full rounded-lg bg-indigo-600 px-6 py-3 text-white hover:bg-indigo-700 transition-colors sm:w-auto"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Close Article
-                  </motion.button>
-                </div>
+                                 {/* Social Sharing */}
+                 <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                   <div className="flex items-center justify-between">
+                     <div className="flex items-center gap-2">
+                       <Share2 className="size-4 text-gray-600 dark:text-gray-400" />
+                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Share this article:</span>
+                     </div>
+                     <div className="flex gap-2">
+                       <motion.button
+                         onClick={() => sharePost('twitter', selectedPost)}
+                         className="rounded-full p-2 text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                         whileHover={{ scale: 1.1 }}
+                         whileTap={{ scale: 0.9 }}
+                         title="Share on Twitter"
+                       >
+                         <Twitter className="size-5" />
+                       </motion.button>
+                       <motion.button
+                         onClick={() => sharePost('facebook', selectedPost)}
+                         className="rounded-full p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                         whileHover={{ scale: 1.1 }}
+                         whileTap={{ scale: 0.9 }}
+                         title="Share on Facebook"
+                       >
+                         <Facebook className="size-5" />
+                       </motion.button>
+                       <motion.button
+                         onClick={() => sharePost('linkedin', selectedPost)}
+                         className="rounded-full p-2 text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                         whileHover={{ scale: 1.1 }}
+                         whileTap={{ scale: 0.9 }}
+                         title="Share on LinkedIn"
+                       >
+                         <Linkedin className="size-5" />
+                       </motion.button>
+                       <motion.button
+                         onClick={() => sharePost('email', selectedPost)}
+                         className="rounded-full p-2 text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-700 transition-colors"
+                         whileHover={{ scale: 1.1 }}
+                         whileTap={{ scale: 0.9 }}
+                         title="Share via Email"
+                       >
+                         <Mail className="size-5" />
+                       </motion.button>
+                     </div>
+                   </div>
+                 </div>
+
+                 {/* Action Buttons */}
+                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-between">
+                   <Link to="/blog">
+                     <motion.button
+                       className="w-full rounded-lg border border-indigo-600 bg-transparent px-6 py-3 text-indigo-600 hover:bg-indigo-50 dark:text-indigo-400 dark:hover:bg-indigo-900/20 transition-colors sm:w-auto"
+                       whileHover={{ scale: 1.02 }}
+                       whileTap={{ scale: 0.98 }}
+                     >
+                       View All Articles
+                     </motion.button>
+                   </Link>
+                   <motion.button
+                     onClick={() => setSelectedPost(null)}
+                     className="w-full rounded-lg bg-indigo-600 px-6 py-3 text-white hover:bg-indigo-700 transition-colors sm:w-auto"
+                     whileHover={{ scale: 1.02 }}
+                     whileTap={{ scale: 0.98 }}
+                   >
+                     Close Article
+                   </motion.button>
+                 </div>
               </div>
             </motion.div>
           </motion.div>
