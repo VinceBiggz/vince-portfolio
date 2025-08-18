@@ -1,14 +1,9 @@
-import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
 
-export default function TestimonialsSection() {
-  const ref = useRef(null);
-  const scrollContainerRef = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+export default function Testimonials() {
   const [selectedTestimonial, setSelectedTestimonial] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const testimonials = [
     {
@@ -121,29 +116,6 @@ export default function TestimonialsSection() {
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
-
   const StarRating = ({ rating }) => {
     return (
       <div className="flex space-x-1">
@@ -163,163 +135,89 @@ export default function TestimonialsSection() {
     );
   };
 
-  const truncateText = (text, maxLength = 150) => {
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + "...";
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
   };
 
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -400, behavior: 'smooth' });
-    }
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
   };
-
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 400, behavior: 'smooth' });
-    }
-  };
-
-  // Auto-scroll functionality
-  useEffect(() => {
-    if (!isInView) return;
-    
-    const interval = setInterval(() => {
-      if (scrollContainerRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-        if (scrollLeft >= scrollWidth - clientWidth) {
-          scrollContainerRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          scrollContainerRef.current.scrollBy({ left: 400, behavior: 'smooth' });
-        }
-      }
-    }, 5000); // Auto-scroll every 5 seconds
-
-    return () => clearInterval(interval);
-  }, [isInView]);
 
   return (
-    <motion.section
-      ref={ref}
-      className="bg-white py-20 dark:bg-gray-900"
-      initial={{ opacity: 0 }}
-      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.7 }}
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white dark:bg-gray-900 py-16 px-4">
+      <div className="mx-auto max-w-7xl">
         <motion.div
           className="mb-16 text-center"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          <motion.h2
-            className="mb-4 text-4xl font-bold text-gray-900 dark:text-white"
-            variants={itemVariants}
-          >
-            What Clients Say
-          </motion.h2>
-          <motion.p
-            className="mx-auto max-w-3xl text-xl text-gray-600 dark:text-gray-300"
-            variants={itemVariants}
-          >
-            Don&apos;t just take my word for it. Here&apos;s what industry leaders 
-            and colleagues have to say about working together.
-          </motion.p>
+          <h1 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
+            Client Testimonials
+          </h1>
+          <p className="mx-auto max-w-3xl text-xl text-gray-600 dark:text-gray-300">
+            Don&apos;t just take my word for it. Here&apos;s what industry leaders, 
+            colleagues, and clients have to say about working together.
+          </p>
         </motion.div>
 
-        <div className="relative">
-          {/* Navigation Arrows */}
-          <motion.button
-            onClick={scrollLeft}
-            className="absolute left-0 top-1/2 z-10 -translate-y-1/2 -translate-x-4 rounded-full bg-white dark:bg-gray-800 p-2 shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <ChevronLeft className="size-6 text-gray-600 dark:text-gray-300" />
-          </motion.button>
-
-          <motion.button
-            onClick={scrollRight}
-            className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-4 rounded-full bg-white dark:bg-gray-800 p-2 shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <ChevronRight className="size-6 text-gray-600 dark:text-gray-300" />
-          </motion.button>
-
-          <motion.div
-            ref={scrollContainerRef}
-            className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide px-8"
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-          >
+        <motion.div
+          className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {testimonials.map((testimonial) => (
             <motion.div
               key={testimonial.id}
-              className="min-w-[350px] max-w-[350px] rounded-2xl bg-gray-50 dark:bg-gray-800 p-6 shadow-lg"
+              className="rounded-2xl bg-gray-50 dark:bg-gray-800 p-8 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
               variants={itemVariants}
               whileHover={{
                 scale: 1.02,
                 boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
               }}
               transition={{ duration: 0.3 }}
+              onClick={() => setSelectedTestimonial(testimonial)}
             >
-              <div className="mb-4">
+              <div className="mb-6">
                 <StarRating rating={testimonial.rating} />
               </div>
               
-              <blockquote className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300 h-24 overflow-hidden">
-                &ldquo;{truncateText(testimonial.content, 120)}&rdquo;
+              <blockquote className="mb-6 leading-relaxed text-gray-700 dark:text-gray-300">
+                &ldquo;{testimonial.content}&rdquo;
               </blockquote>
               
-              <div className="flex items-center mb-4">
-                <div className="mr-3 text-2xl">{testimonial.avatar}</div>
-                <div className="flex-1">
-                  <div className="font-semibold text-gray-900 dark:text-white text-sm">
+              <div className="flex items-center">
+                <div className="mr-4 text-3xl">{testimonial.avatar}</div>
+                <div>
+                  <div className="font-semibold text-gray-900 dark:text-white">
                     {testimonial.name}
                   </div>
-                  <div className="text-xs text-gray-600 dark:text-gray-400">
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
                     {testimonial.role}
                   </div>
-                  <div className="text-xs font-medium text-indigo-600 dark:text-indigo-400">
+                  <div className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
                     {testimonial.company}
                   </div>
                 </div>
               </div>
-
-              {testimonial.content.length > 120 && (
-                <motion.button
-                  onClick={() => setSelectedTestimonial(testimonial)}
-                  className="w-full text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Read More
-                </motion.button>
-              )}
             </motion.div>
-                      ))}
-          </motion.div>
-        </div>
-
-        <motion.div
-          className="mt-16 text-center"
-          variants={itemVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          <Link to="/testimonials">
-            <motion.button
-              className="inline-flex items-center rounded-xl border border-indigo-600 bg-white dark:bg-gray-800 px-6 py-3 text-base font-medium text-indigo-600 dark:text-indigo-400 transition-colors hover:bg-indigo-50 dark:hover:bg-gray-700"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-            >
-              View All Testimonials
-            </motion.button>
-          </Link>
+          ))}
         </motion.div>
       </div>
 
@@ -333,7 +231,7 @@ export default function TestimonialsSection() {
           onClick={() => setSelectedTestimonial(null)}
         >
           <motion.div
-            className="max-w-2xl w-full rounded-2xl bg-white dark:bg-gray-800 p-8 shadow-2xl"
+            className="max-w-4xl w-full rounded-2xl bg-white dark:bg-gray-800 p-8 shadow-2xl max-h-[90vh] overflow-y-auto"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
@@ -373,7 +271,6 @@ export default function TestimonialsSection() {
           </motion.div>
         </motion.div>
       )}
-    </motion.section>
+    </div>
   );
 }
-
