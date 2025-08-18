@@ -66,7 +66,7 @@ export default function ProjectCard({ title, description, githubLink, image, sta
 
   return (
     <motion.div
-      className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xl"
+      className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xl dark:border-gray-700 dark:bg-gray-800"
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
@@ -103,7 +103,7 @@ export default function ProjectCard({ title, description, githubLink, image, sta
 
       <motion.div variants={contentVariants}>
         <motion.h3 
-          className="mb-2 text-xl font-bold text-gray-900"
+          className="mb-2 text-xl font-bold text-gray-900 dark:text-white"
           whileHover={{ color: "#4f46e5" }}
           transition={{ duration: 0.2 }}
         >
@@ -111,7 +111,7 @@ export default function ProjectCard({ title, description, githubLink, image, sta
         </motion.h3>
         
         <motion.p 
-          className="mb-4 leading-relaxed text-gray-700"
+          className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300"
           variants={contentVariants}
         >
           {description}

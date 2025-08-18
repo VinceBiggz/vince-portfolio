@@ -117,7 +117,7 @@ export default function SocialMediaSection() {
   return (
     <motion.section
       ref={ref}
-      className="bg-gray-50 py-20"
+      className="bg-gray-50 py-20 dark:bg-gray-800"
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.7 }}
@@ -130,13 +130,13 @@ export default function SocialMediaSection() {
           animate={isInView ? "visible" : "hidden"}
         >
           <motion.h2
-            className="mb-4 text-4xl font-bold text-gray-900"
+            className="mb-4 text-4xl font-bold text-gray-900 dark:text-white"
             variants={itemVariants}
           >
             Connect With Me
           </motion.h2>
           <motion.p
-            className="mx-auto max-w-3xl text-xl text-gray-600"
+            className="mx-auto max-w-3xl text-xl text-gray-600 dark:text-gray-300"
             variants={itemVariants}
           >
             Stay updated with my latest projects, insights, and industry thoughts 
@@ -154,7 +154,7 @@ export default function SocialMediaSection() {
           {stats.map((stat) => (
             <motion.div
               key={stat.label}
-              className="rounded-2xl bg-white p-6 text-center shadow-lg"
+              className="rounded-2xl bg-white p-6 text-center shadow-lg dark:bg-gray-700"
               variants={cardVariants}
               whileHover={{
                 scale: 1.02,
@@ -162,16 +162,16 @@ export default function SocialMediaSection() {
               }}
               transition={{ duration: 0.3 }}
             >
-              <div className="mb-4 inline-flex size-12 items-center justify-center rounded-xl bg-indigo-100">
-                <stat.icon className="size-6 text-indigo-600" />
+              <div className="mb-4 inline-flex size-12 items-center justify-center rounded-xl bg-indigo-100 dark:bg-indigo-900">
+                <stat.icon className="size-6 text-indigo-600 dark:text-indigo-400" />
               </div>
-              <div className="mb-2 text-3xl font-bold text-gray-900">
+              <div className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
                 {stat.value}
               </div>
-              <div className="mb-1 text-lg font-medium text-gray-700">
+              <div className="mb-1 text-lg font-medium text-gray-700 dark:text-gray-300">
                 {stat.label}
               </div>
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-gray-500 dark:text-gray-400">
                 {stat.description}
               </div>
             </motion.div>
@@ -191,7 +191,7 @@ export default function SocialMediaSection() {
               href={platform.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group rounded-2xl bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
+              className="group rounded-2xl bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl dark:bg-gray-700"
               variants={cardVariants}
               whileHover={{
                 scale: 1.02,
@@ -203,22 +203,22 @@ export default function SocialMediaSection() {
                 <div className={`inline-flex size-10 items-center justify-center rounded-lg ${platform.color} text-white`}>
                   <platform.icon className="size-5" />
                 </div>
-                <ExternalLink className="size-4 text-gray-400 transition-colors group-hover:text-gray-600" />
+                <ExternalLink className="size-4 text-gray-400 transition-colors group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-400" />
               </div>
               
-              <h3 className="mb-2 text-lg font-semibold text-gray-900">
+              <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
                 {platform.name}
               </h3>
               
-              <p className="mb-3 text-sm text-gray-600">
+              <p className="mb-3 text-sm text-gray-600 dark:text-gray-400">
                 {platform.username}
               </p>
               
-              <div className="mb-2 text-2xl font-bold text-gray-900">
+              <div className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
                 {platform.followers}
               </div>
               
-              <p className="text-sm leading-relaxed text-gray-500">
+              <p className="text-sm leading-relaxed text-gray-500 dark:text-gray-400">
                 {platform.description}
               </p>
             </motion.a>
@@ -227,16 +227,16 @@ export default function SocialMediaSection() {
 
         {/* Newsletter Signup */}
         <motion.div
-          className="mt-16 rounded-2xl bg-white p-8 shadow-lg"
+          className="mt-16 rounded-2xl bg-white p-8 shadow-lg dark:bg-gray-700"
           variants={itemVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
           <div className="text-center">
-            <h3 className="mb-4 text-2xl font-bold text-gray-900">
+            <h3 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
               Stay Updated
             </h3>
-            <p className="mx-auto mb-6 max-w-2xl text-gray-600">
+            <p className="mx-auto mb-6 max-w-2xl text-gray-600 dark:text-gray-300">
               Get the latest insights on cloud computing, DevOps, and digital transformation 
               delivered directly to your inbox.
             </p>
@@ -245,7 +245,7 @@ export default function SocialMediaSection() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 rounded-lg border border-gray-300 px-4 py-3 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
               />
               <motion.button
                 className="rounded-lg bg-indigo-600 px-6 py-3 font-medium text-white transition-colors hover:bg-indigo-700"

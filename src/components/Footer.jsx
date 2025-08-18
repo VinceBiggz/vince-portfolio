@@ -2,7 +2,7 @@ import { Github, Linkedin, Twitter, Instagram, Globe } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-800 p-4 text-white">
+    <footer className="bg-gray-800 p-4 text-white dark:bg-gray-900">
       <div className="container mx-auto flex items-center justify-between">
         <p>&copy; {new Date().getFullYear()} Vincent Wachira. All rights reserved.</p>
         <div className="flex space-x-4">

@@ -73,7 +73,7 @@ export default function BlogSection() {
   return (
     <motion.section
       ref={ref}
-      className="bg-gray-50 py-20"
+      className="bg-gray-50 py-20 dark:bg-gray-800"
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.7 }}
@@ -86,13 +86,13 @@ export default function BlogSection() {
           animate={isInView ? "visible" : "hidden"}
         >
           <motion.h2
-            className="mb-4 text-4xl font-bold text-gray-900"
+            className="mb-4 text-4xl font-bold text-gray-900 dark:text-white"
             variants={itemVariants}
           >
             Latest Insights
           </motion.h2>
           <motion.p
-            className="mx-auto max-w-3xl text-xl text-gray-600"
+            className="mx-auto max-w-3xl text-xl text-gray-600 dark:text-gray-300"
             variants={itemVariants}
           >
             Sharing knowledge and experiences from the world of cloud computing, 
@@ -109,7 +109,7 @@ export default function BlogSection() {
           {blogPosts.map((post) => (
             <motion.article
               key={post.id}
-              className="overflow-hidden rounded-2xl bg-white shadow-lg"
+              className="overflow-hidden rounded-2xl bg-white shadow-lg dark:bg-gray-700"
               variants={cardVariants}
               whileHover={{
                 scale: 1.02,
@@ -119,22 +119,22 @@ export default function BlogSection() {
             >
               <div className="p-6">
                 <div className="mb-4 flex items-center justify-between">
-                  <span className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-800">
+                  <span className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200">
                     {post.category}
                   </span>
-                  <span className="text-sm text-gray-500">{post.readTime}</span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">{post.readTime}</span>
                 </div>
                 
-                <h3 className="mb-3 text-xl font-bold text-gray-900">
+                <h3 className="mb-3 text-xl font-bold text-gray-900 dark:text-white">
                   {post.title}
                 </h3>
                 
-                <p className="mb-4 leading-relaxed text-gray-600">
+                <p className="mb-4 leading-relaxed text-gray-600 dark:text-gray-300">
                   {post.excerpt}
                 </p>
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
                     {new Date(post.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
@@ -143,7 +143,7 @@ export default function BlogSection() {
                   </span>
                   
                   <motion.button
-                    className="font-medium text-indigo-600 transition-colors hover:text-indigo-800"
+                    className="font-medium text-indigo-600 transition-colors hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.2 }}
                   >

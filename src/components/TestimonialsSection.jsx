@@ -80,7 +80,7 @@ export default function TestimonialsSection() {
   return (
     <motion.section
       ref={ref}
-      className="bg-white py-20"
+      className="bg-white py-20 dark:bg-gray-900"
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.7 }}
@@ -93,13 +93,13 @@ export default function TestimonialsSection() {
           animate={isInView ? "visible" : "hidden"}
         >
           <motion.h2
-            className="mb-4 text-4xl font-bold text-gray-900"
+            className="mb-4 text-4xl font-bold text-gray-900 dark:text-white"
             variants={itemVariants}
           >
             What Clients Say
           </motion.h2>
           <motion.p
-            className="mx-auto max-w-3xl text-xl text-gray-600"
+            className="mx-auto max-w-3xl text-xl text-gray-600 dark:text-gray-300"
             variants={itemVariants}
           >
             Don&apos;t just take my word for it. Here&apos;s what industry leaders 
@@ -116,7 +116,7 @@ export default function TestimonialsSection() {
           {testimonials.map((testimonial) => (
             <motion.div
               key={testimonial.id}
-              className="rounded-2xl bg-gray-50 p-8 shadow-lg"
+              className="rounded-2xl bg-gray-50 p-8 shadow-lg dark:bg-gray-800"
               variants={itemVariants}
               whileHover={{
                 scale: 1.02,
@@ -128,20 +128,20 @@ export default function TestimonialsSection() {
                 <StarRating rating={testimonial.rating} />
               </div>
               
-              <blockquote className="mb-6 leading-relaxed text-gray-700">
+              <blockquote className="mb-6 leading-relaxed text-gray-700 dark:text-gray-300">
                 &ldquo;{testimonial.content}&rdquo;
               </blockquote>
               
               <div className="flex items-center">
                 <div className="mr-4 text-3xl">{testimonial.avatar}</div>
                 <div>
-                  <div className="font-semibold text-gray-900">
+                  <div className="font-semibold text-gray-900 dark:text-white">
                     {testimonial.name}
                   </div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
                     {testimonial.role}
                   </div>
-                  <div className="text-sm font-medium text-indigo-600">
+                  <div className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
                     {testimonial.company}
                   </div>
                 </div>

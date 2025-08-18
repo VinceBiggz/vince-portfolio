@@ -42,7 +42,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="flex min-h-screen w-full items-center justify-center bg-white px-6 py-16">
+    <section className="flex min-h-screen w-full items-center justify-center bg-white px-6 py-16 dark:bg-gray-900">
       <motion.div
         className="grid w-full max-w-7xl grid-cols-1 items-center gap-12 md:grid-cols-2"
         variants={containerVariants}
@@ -74,21 +74,21 @@ const HeroSection = () => {
           variants={containerVariants}
         >
           <motion.h1 
-            className="text-4xl font-extrabold leading-tight text-gray-900 lg:text-6xl"
+            className="text-4xl font-extrabold leading-tight text-gray-900 dark:text-white lg:text-6xl"
             variants={itemVariants}
           >
             Vincent Wachira
           </motion.h1>
           
           <motion.h2 
-            className="text-lg font-medium tracking-wide text-indigo-600 md:text-xl lg:text-2xl"
+            className="text-lg font-medium tracking-wide text-indigo-600 dark:text-indigo-400 md:text-xl lg:text-2xl"
             variants={itemVariants}
           >
             Building Secure, Scalable Systems with Precision and Purpose
           </motion.h2>
           
           <motion.p 
-            className="max-w-xl text-base leading-relaxed text-gray-700 md:text-lg"
+            className="max-w-xl text-base leading-relaxed text-gray-700 dark:text-gray-300 md:text-lg"
             variants={itemVariants}
           >
             I&apos;m a seasoned IT professional with over 12 years of experience leading digital

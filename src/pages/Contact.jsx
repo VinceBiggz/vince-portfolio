@@ -75,15 +75,15 @@ export default function Contact() {
 
   return (
     <motion.div
-      className="min-h-screen bg-white px-4 py-16"
+      className="min-h-screen bg-white px-4 py-16 dark:bg-gray-900"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       <div className="mx-auto max-w-4xl">
         <motion.div className="mb-12 text-center" variants={itemVariants}>
-          <h1 className="mb-4 text-4xl font-bold text-gray-900">Get In Touch</h1>
-          <p className="mx-auto max-w-2xl text-lg text-gray-600">
+          <h1 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white">Get In Touch</h1>
+          <p className="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-300">
             I&apos;m always interested in new opportunities and collaborations. 
             Whether you have a question or just want to say hi, feel free to reach out!
           </p>

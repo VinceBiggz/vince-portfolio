@@ -59,7 +59,7 @@ export default function AboutSection() {
   return (
     <motion.section
       ref={ref}
-      className="flex min-h-screen w-full items-center justify-center bg-white px-6 py-20"
+      className="flex min-h-screen w-full items-center justify-center bg-white px-6 py-20 dark:bg-gray-900"
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.7 }}
@@ -78,31 +78,31 @@ export default function AboutSection() {
         >
           <motion.h2 
             id="about-heading" 
-            className="text-4xl font-extrabold leading-tight text-gray-900 md:text-5xl"
+            className="text-4xl font-extrabold leading-tight text-gray-900 dark:text-white md:text-5xl"
             variants={itemVariants}
           >
             About Me
           </motion.h2>
           
           <motion.p 
-            className="text-lg leading-relaxed text-gray-700"
+            className="text-lg leading-relaxed text-gray-700 dark:text-gray-300"
             variants={itemVariants}
           >
-            I&apos;m <span className="font-semibold text-indigo-700">Vincent Wachira</span> — a senior IT strategist and cloud engineer with a decade of success delivering digital transformation, security, and automation at scale.
+            I&apos;m <span className="font-semibold text-indigo-700 dark:text-indigo-400">Vincent Wachira</span> — a senior IT strategist and cloud engineer with a decade of success delivering digital transformation, security, and automation at scale.
           </motion.p>
           
           <motion.p 
-            className="text-lg leading-relaxed text-gray-700"
+            className="text-lg leading-relaxed text-gray-700 dark:text-gray-300"
             variants={itemVariants}
           >
             Notable achievements include automating issue tracking at Wasoko, reducing Time to Resolution by 50%, and leading a Tanzania Data Center setup for Nala to meet regulatory compliance. I&apos;m proficient in HTML, CSS, JavaScript, Python, and SQL.
           </motion.p>
           
           <motion.p 
-            className="text-lg leading-relaxed text-gray-700"
+            className="text-lg leading-relaxed text-gray-700 dark:text-gray-300"
             variants={itemVariants}
           >
-            Certifications: <span className="font-semibold text-indigo-700">Google Certified Professional Cloud Architect, ISO 27001 Internal Auditor, ALX-T Cloud DevOps Engineer, Oracle Certified Foundations Associate.</span>
+            Certifications: <span className="font-semibold text-indigo-700 dark:text-indigo-400">Google Certified Professional Cloud Architect, ISO 27001 Internal Auditor, ALX-T Cloud DevOps Engineer, Oracle Certified Foundations Associate.</span>
           </motion.p>
 
           {/* Achievements Card */}
