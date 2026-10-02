@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-800 p-4 text-white dark:bg-gray-900">
       <div className="container mx-auto flex items-center justify-between">
-        <p>&copy; {new Date().getFullYear()} Vincent Wachira. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Intellify IT. All rights reserved.</p>
         <div className="flex space-x-4">
           <a href="https://github.com/VinceBiggz" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" className="transition-colors hover:text-blue-400">
             <Github className="size-6" />
